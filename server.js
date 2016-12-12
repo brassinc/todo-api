@@ -9,9 +9,16 @@ var todos = [];
 
 app.use(bodyParser.json());
 
-// GET /todos
+// GET /todos?complete=true
 app.get('/todos', function (req, res) {
-	res.json(todos); // converts todos array to json and sends response
+	var queryParams = req.query;
+	var filteredTodos = todos;
+	if (queryParams.hasOwnProperty('completed') && queryParams.completed === 'true') {
+		filteredTodos = _.where(filteredTodos, {completed: true});
+	} else if (queryParams.hasOwnProperty('completed') && queryParams.completed === 'false') {
+		filteredTodos = _.where(filteredTodos, {completed: false});
+	}
+	res.json(filteredTodos); // converts todos array to json and sends response
 })
 
 // GET /todos/:id
