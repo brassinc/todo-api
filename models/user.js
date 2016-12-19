@@ -42,7 +42,7 @@ module.exports = function(sequelize, Datatypes) {
 			}
 		},
 		classMethods: {
-			autheniticate: function(body) {
+			authenticate: function(body) {
 				return new Promise(function(resolve, reject) {
 					if (typeof body.email !== 'string' || typeof body.password !== 'string') {
 						return reject();
@@ -60,7 +60,7 @@ module.exports = function(sequelize, Datatypes) {
 						resolve(user);
 
 					}, function(e) {
-						reject;
+						reject();
 					});
 				});
 			}
